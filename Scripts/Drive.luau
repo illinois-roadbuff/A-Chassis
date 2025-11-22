@@ -24,6 +24,7 @@ script.Parent:WaitForChild("Values")
 	local UserInputService = game:GetService("UserInputService")
 	local GuiService = game:GetService("GuiService")
 	local RunService = game:GetService("RunService")
+    local TextChatService = game:GetService("TextChatService")
 	local car = script.Parent.Car.Value
 	local _Tune = require(car["A-Chassis Tune"])
 	local Units = require(car["A-Chassis Tune"].README.Units)
@@ -259,7 +260,7 @@ values.AutoClutch.Value = true
 
 --Input Handler
 function DealWithInput(input,IsRobloxFunction)
-	if (UserInputService:GetFocusedTextBox()==nil) and not _InControls then --Ignore when UI Focus
+	if (UserInputService:GetFocusedTextBox()==nil and TextChatService.ChatInputBarConfiguration.IsFocused == false) and not _InControls then --Ignore when UI Focus
 		--Shift Down [Manual Transmission]
 		if (input.KeyCode ==_CTRL["ContlrShiftDown"] or (_MSteer and input.KeyCode==_CTRL["MouseShiftDown"]) or ((not _MSteer) and input.KeyCode==_CTRL["ShiftDown"])) and ((_IsOn and ((_TMode=="Auto" and _CGear<=1) and _Tune.AutoShiftVers == "New") or _TMode=="Semi") or _TMode=="Manual") and input.UserInputState == Enum.UserInputState.Begin then
 			if not _ShiftDn then _ShiftDn = true end
